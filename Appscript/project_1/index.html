@@ -19,21 +19,36 @@
   </body>
 
   <script>
+    console.clear();
+
+    const romanDict = {
+      M: 1000,
+      CM: 900,
+      D: 500,
+      CD: 400,
+      C: 100,
+      XC: 90,
+      L: 50,
+      XL: 40,
+      X: 10,
+      IX: 9,
+      V: 5,
+      IV: 4,
+      I: 1,
+    };
+
     document
       .getElementById("romansubmit")
       .addEventListener("submit", romantonumber);
 
     function romantonumber() {
-      console.clear();
-      event.preventDefault();
-      let data = document.getElementById("pastedata").innerHTML;
+      let romannumber = document.getElementById("romantonumber").value;
+      // event.preventDefault();
+      console.log(romannumber.length);
 
-      document.getElementById("pastedata").innerHTML = `<p> Hello </p>`;
-      console.log(data);
-
-      let inpbox = document.getElementById("romantonumber").value;
-      console.log(inpbox);
-      // console.log()
+      for (let i = 0; romannumber.length; i++) {
+        
+      }
     }
   </script>
 </html>
