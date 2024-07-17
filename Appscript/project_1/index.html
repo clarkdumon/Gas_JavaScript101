@@ -7,10 +7,33 @@
   </head>
   <body>
     <div>
-      <input type="text" />
-      <input type="submit" value="Submit" />
+      <form action="" id="romansubmit">
+        <input type="text" id="romantonumber" />
+        <input type="submit" value="Submit" />
+      </form>
     </div>
     <hr />
-    <div class="datapaste"></div>
+    <div class="datapaste" id="pastedata">
+      <p>test</p>
+    </div>
   </body>
+
+  <script>
+    document
+      .getElementById("romansubmit")
+      .addEventListener("submit", romantonumber);
+
+    function romantonumber() {
+      console.clear();
+      event.preventDefault();
+      let data = document.getElementById("pastedata").innerHTML;
+
+      document.getElementById("pastedata").innerHTML = `<p> Hello </p>`;
+      console.log(data);
+
+      let inpbox = document.getElementById("romantonumber").value;
+      console.log(inpbox);
+      // console.log()
+    }
+  </script>
 </html>
