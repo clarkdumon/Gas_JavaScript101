@@ -47,8 +47,14 @@
       console.log(romannumber.length);
 
       for (let i = 0; romannumber.length; i++) {
-        
-      }
+        if(romanDict[roman[i]]<romanDict[roman[i+1]]){
+
+          total -= romanDict[roman[i]];
+          }
+        else{
+          total +=romanDict[roman[i]];
+          }
+          return total;
     }
   </script>
 </html>

@@ -18,7 +18,7 @@ function romanToNumber(roman) {
 
 let total = 0;
 
-for(let i=0, i<roman.lenth,i++){
+for(let i=0; i<roman.lenth;i++){
     if{romanDict[roman[i]]<romanDict[roman[i+1]]}
 
     total -= romanDict[roman[i]];
