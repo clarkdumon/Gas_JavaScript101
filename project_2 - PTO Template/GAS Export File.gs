@@ -23,3 +23,14 @@ function fetchDataFromGsheets() {
   destinationSheet.getRange(rangeA1).sort(5).sort(4)
 
 }
+function exportData(gsheetID) {
+  let dataRange = "A4:U" + getLastRow(gsheetID)
+  let ss = SpreadsheetApp.openById(gsheetID)
+  let sh = ss.getSheetByName('Process')
+  let exportRange = sh.getRange(dataRange).getValues()
+  let destinationSheet = SpreadsheetApp.openById(destinationWB).getSheetByName('Conso')
+
+  console.log(exportRange.length)
+  destinationSheet.getRange("A" + destinationLastRow()).offset(0, 0, exportRange.length, exportRange[0].length).setValues(exportRange)
+
+}
