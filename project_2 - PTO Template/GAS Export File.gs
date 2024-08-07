@@ -6,3 +6,10 @@ function getLastRow(gsheetID) {
   }).length + 2
   return range
 }
+
+function getdatata() {
+  let destinationSheet = SpreadsheetApp.openById(destinationWB).getSheetByName('Conso')
+  let rangeA1 = destinationSheet.getRange("A1").getDataRegion().offset(1,0,destinationSheet.getLastRow()-1).getA1Notation()
+  destinationSheet.getRange(rangeA1).sort(5).sort(4)
+  // destinationSheet.sort(4, true)
+}
