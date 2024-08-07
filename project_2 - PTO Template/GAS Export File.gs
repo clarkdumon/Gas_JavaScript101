@@ -34,3 +34,15 @@ function exportData(gsheetID) {
   destinationSheet.getRange("A" + destinationLastRow()).offset(0, 0, exportRange.length, exportRange[0].length).setValues(exportRange)
 
 }
+function destinationLastRow() {
+  let destinationSheet = SpreadsheetApp.openById(destinationWB).getSheetByName('Conso')
+  let range = destinationSheet.getRange("A:A").getValues().filter(data => {
+    return data != ""
+  }).length + 1
+  return range
+}
+
+
+function deleteafterlockweek() {
+
+}
