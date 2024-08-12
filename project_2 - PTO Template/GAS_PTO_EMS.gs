@@ -32,9 +32,14 @@ const SIGNATURE = `<div>
 
 
 
+function reccook() {
+  let range = PTOEMS.getSheetByName('EMS').getRange('A1:B2').getDisplayValues()
+  console.log(range[0].join(','))
+}
+
 function emailPTO() {
 
-  EMAILsubject = EMAILsubject + 'Approved'
+  EMAILsubject = EMAILsubjectTemplate + '| Clark Dumon'
   HTMLOptions.htmlBody =
     `
   Hi [NAME],
@@ -52,16 +57,53 @@ ${SIGNATURE}`
 
 function deniedemailPTO() {
 
-HTMLOptions.htmlBody=
+  HTMLOptions.htmlBody =
     `
   Hi [NAME],
   <br><br>
     Your PTO has been Denied due to [Remarks for denial] for [LEAVE DATE]
-  <br>
-    Kindly request you PTO in flash
   <br><br><br><br>
 ${SIGNATURE}`
 
-GmailApp.sendEmail(EMAILto, EMAILsubject, null, HTMLOptions)
+  GmailApp.sendEmail(EMAILto, EMAILsubject, null, HTMLOptions)
+
+}
+
+
+function testEmail() {
+
+  EMAILsubject = EMAILsubjectTemplate + 'Dumon, Clark Laurent'
+  HTMLOptions.htmlBody = EMAILTEMPLATE('Dumon, Clark Laurent', '12/1/2024')
+
+  HTMLOptions.cc = ''
+  GmailApp.sendEmail(EMAILto, EMAILsubject, null, HTMLOptions)
+}
+
+function funcEmail() {
+  const EMSrange = PTOEMS.getSheetByName('EMS').getRange("A2:K").getDisplayValues()
+  // console.log(EMSrange)
+
+  for (let sendEmailCounter = 0; sendEmailCounter < EMSrange.length; sendEmailCounter++) {
+    if (EMSrange[sendEmailCounter][9] == "") {
+      
+      let fullName = EMSrange[sendEmailCounter][3] //console.log(EMSrange[sendEmailCounter][3])    //full name
+      let leaveDate = EMSrange[sendEmailCounter][1]     //console.log(EMSrange[sendEmailCounter][1])    //leave date
+      let agentEmail= EMSrange[sendEmailCounter][7] //console.log(EMSrange[sendEmailCounter][7])    //agentemail
+      let teamleadEmail= EMSrange[sendEmailCounter][8] //console.log(EMSrange[sendEmailCounter][8])    //teamleademail
+
+      EMAILsubject = EMAILsubjectTemplate + fullName
+      HTMLOptions.htmlBody = EMAILTEMPLATE(fullName, leaveDate)
+
+      EMAILto = agentEmail
+      HTMLOptions.cc = teamleadEmail
+      GmailApp.sendEmail(EMAILto, EMAILsubject, null, HTMLOptions)
+
+
+      PTOEMS.getSheetByName('EMS').getRange(sendEmailCounter + 2, 10).setValue('Sent')
+      PTOEMS.getSheetByName('EMS').getRange(sendEmailCounter + 2, 11).setValue(new Date())
+
+    }
+
+  }
 
 }
